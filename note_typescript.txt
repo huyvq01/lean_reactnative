@@ -1,0 +1,349 @@
+* Các kiểu dữ liệu:
+-string: kí tự
+-number: kiểu số bao gồm int, long, double
+-boolean: true false
+
+- Kiểu object(phải khai báo đủ các thông tin trong object): 
+let nhanVien: {
+	fullname:string;
+	age:number;
+	gender:boolean
+}
+
+- Khai báo mảng: 
+let mangString:string[]
++Cách 1: mangString = ["Nguyen Van A", "Nguyen Van B"]
++Cách 2: mangString.push("Nguyen Van A")
+		 mangString.push("Nguyen Van B")
+
+mangString.forEach(item => console.log(item))
+
+* Khai báo 1 biến với nhiều kiểu dữ liệu(Alias)
+type kieuCustom = string|number
+let soA:kieuCustom = "Nguyen Van A"
+soA = 3
+
+* Khai báo hàm
++ Hàm không có giá trị trả về
+function tinhTong(a:number, b:bumber):void{
+	const kq = a + b
+	console.log(kq)
+}
+
+tinhTong(1,2)
+
++ Hàm có giá trị trả về
+function tinhTong(a:number, b:bumber):number{
+	const kq = a + b
+	return kq
+}
+
+let tong = tinhTong(1,2)
+console.log(tong)
+
+* Arrow function
+let tinhTong = (a:number, b:number):void => {
+	console.log(a+b)
+}
+
+tinhTong(2, 5)
+
+* Kiểu dữ liệu optional
+let nhanVien:{
+	fullname:string;
+	age?:number
+} = {
+	fullname: ""
+}
+nhanVien.age = 21
+
+console.log(nhanVien.age)
+
+function tinhTong(a:number, b?:number)void{
+	let kq = 0;
+	if(typeof b !== 'undefined'){
+		kq = a + b
+	}else{
+		kq = a
+	}
+	
+	console.log(kq)
+}
+
+tinhTong(1)
+
+* RestParameter
+function tinhTong(...a:number[]):void{
+	let kq:number = 0
+	a.forEach(item => kq += item)
+	console.log(kq)
+}
+
+tinhTong(1,2,3)
+
+* class trong typesript
+class nhanVien{
+	fullname:string
+	age:number
+	gender:boolean
+	
+	constructor(fullname: string, age: number, gender: boolean){
+		this.fullname = fullname
+		this.age = age
+		this.gender = gender
+	}
+	
+	-- Tạo Hàm
+	cauChao() {
+		console.log(this.fullname)
+	}
+}
+
+const nhanVien: nhanVien = new nhanVien('Nguyen Van A', 21, true)
+
+-- gọi hàm
+nhanVien.cauChao();
+nhanVien.fullname
+
+* Overloading
+
+function tinhTong(a: number, b: number):number
+function tinhTong(a: string, b: string):string
+function tinhTong(a:any, b:any):any{
+	if(typeof a === 'number && typeof b === 'number') {
+		//tinh tong
+	}
+	if(typeof a === 'string' && typeof b === 'string') {
+		//logic code khi nhan vao la chuoi
+	}
+}
+console.log(tinhTong(1,2))
+
+-- khai báo kiểu nhiều biến
+function tinhTong(a: number, b: number):number
+function tinhTong(a: number, b: number, c: number):number
+function tinhTong(a: number, b: number, c: number, d: number):number
+function tinhTong(a:number, b:number, c?:number, d?:number):any{
+	if(c){
+	
+	}
+}
+
+* tính kế thừa
+class nhanVien{
+	fullname:string
+	age:number
+	gender:boolean
+	
+	constructor(fullname: string, age: number, gender: boolean){
+		this.fullname = fullname
+		this.age = age
+		this.gender = gender
+	}
+	
+	-- Tạo Hàm
+	cauChao() {
+		console.log(this.fullname)
+	}
+}
+
+-- hàm kế thừa
+class truongPhong extends nhanVien{
+	bonus: number
+	
+	constructor(, fullname:string, age:number, gender: boolean, bonus:number) {
+		super(fullname, age, gender)
+		this.bonus = bonus
+	}
+}
+
+const truongPhong:truongPhong = new truongPhong('Nguyen Van A', 21, true, 200)
+console.log(truongPhong.bonus, truongPhong,fullname)
+
+
+* Access modifier OOP
+- pulic: gọi tới ở mọi nơi
+- private: chỉ dùng trong object
+- protected: chỉ th con kế thừa mới dùng được
+
+-- biến private thì đặt dấu _ ở trước tên biến
+
+
+class nhanVien{
+	private fullname:string
+	age:number
+	gender:boolean
+	
+	constructor(fullname: string, age: number, gender: boolean){
+		this.fullname = fullname
+		this.age = age
+		this.gender = gender
+	}
+	
+	-- Tạo Hàm
+	cauChao() {
+		console.log(this.fullname)
+	}
+}
+
+-- hàm kế thừa
+class truongPhong extends nhanVien{
+	bonus: number
+	
+	constructor(, fullname:string, age:number, gender: boolean, bonus:number) {
+		super(fullname, age, gender)
+		this.bonus = bonus
+	}
+}
+
+const truongPhong:truongPhong = new truongPhong('Nguyen Van A', 21, true, 200)
+console.log(truongPhong.bonus, truongPhong,fullname)
+
+* Getter vs Setter
+-- biến private thì đặt dấu _ ở trước tên biến
+
+class nhanVien{
+	fullname: string
+	private _age: number
+	
+	constructor(fullname: string, age: number) {
+		this.fullname = fullname
+		this._age = age
+	}
+	
+	pulic get age():number {
+		return this._age
+	}
+	
+	pulic set age(data:number){
+		this._age = data
+	}
+ }
+ 
+ const nhanVien:nhanVien = new nhanVien('Nguyen Van A', 21)
+ nhanVien.age
+ nhanVien.age = 22
+ 
+ *Abstract class(lớp trừu tượng, chỉ dùng để kế thừa chứ không dùng để tạo mới)
+ abstract class nhanVien{
+	fullname: string
+	private _age: number
+	
+	constructor(fullname: string, age: number) {
+		this.fullname = fullname
+		this._age = age
+	}
+	
+	pulic get age():number {
+		return this._age
+	}
+	
+	pulic set age(data:number){
+		this._age = data
+	}
+ }
+ 
+ class truongPhong extends nhanVien {
+	luongThuong: number
+	
+	constructor(fullname: string, age: number, luongThuong: number) {
+		super(fullname, age)
+		this.luongThuong = luongThuong
+	}
+ }
+ 
+const truongPhong = new truongPhong('Nguyen Van A', 21, 500000)
+console.log(truongPhong.age)
+
+* Interface OOP
+ abstract class nhanVien{
+	fullname: string
+	private _age: number
+	
+	constructor(fullname: string, age: number) {
+		this.fullname = fullname
+		this._age = age
+	}
+	
+	pulic get age():number {
+		return this._age
+	}
+	
+	pulic set age(data:number){
+		this._age = data
+	}
+ }
+ 
+interface HanhDong{
+ diLam():void 
+}
+ 
+interface Thuong{
+	thuongTet(): number
+}
+ 
+ class truongPhong extends nhanVien, emplements HanhDong, Thuong {
+	luongThuong: number
+	diLam(): void{
+		console.log(luongThuong)
+	}
+	
+	thuongTet(): number {
+		return 1000000000
+	}
+	
+	constructor(fullname: string, age: number, luongThuong: number) {
+		super(fullname, age)
+		this.luongThuong = luongThuong
+	}
+ }
+ 
+const truongPhong = new truongPhong('Nguyen Van A', 21, 500000)
+console.log(truongPhong.age)
+truongPhong.diLam()
+console.log(truongPhong.thuongTet())
+
+* Tính đa hình
+ class nhanVien{
+	fullname: string
+	private _age: number
+	
+	constructor(fullname: string, age: number) {
+		this.fullname = fullname
+		this._age = age
+	}
+	
+	pulic get age():number {
+		return this._age
+	}
+	
+	pulic set age(data:number){
+		this._age = data
+	}
+ }
+ 
+interface HanhDong{
+ diLam():void 
+}
+ 
+interface Thuong{
+	thuongTet(): number
+}
+ 
+ class truongPhong extends nhanVien, emplements HanhDong, Thuong {
+	luongThuong: number
+	diLam(): void{
+		console.log(luongThuong)
+	}
+	
+	thuongTet(): number {
+		return 1000000000
+	}
+	
+	constructor(fullname: string, age: number, luongThuong: number) {
+		super(fullname, age)
+		this.luongThuong = luongThuong
+	}
+ }
+ 
+const nhanVien:nhanVien = new truongPhong('Nguyen Van A', 32, 1000000000)
